@@ -1,0 +1,127 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.boton-agregar-evento-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  /* Espacio entre el botón y el calendario */
+}
+
+/* YourModalStyles.css */
+
+.custom-modal {
+  width: 400px;
+  max-width: 90%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 50%;
+  /* Coloca el modal en el centro vertical */
+  left: 50%;
+  /* Coloca el modal en el centro horizontal */
+  transform: translate(-50%, -50%);
+  /* Centra el modal correctamente */
+  z-index: 1000;
+  /* Ajusta el índice z para superponerse a otros elementos si es necesario */
+}
+
+.custom-modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-modal input[type="text"],
+.custom-modal label {
+  margin-bottom: 10px;
+}
+
+.custom-modal label {
+  font-weight: bold;
+}
+
+.custom-modal .custom-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.custom-modal .custom-button:hover {
+  background-color: #0056b3;
+}
+
+
+.boton-agregar-evento {
+  font-size: 18px;
+  /* Tamaño de fuente más grande */
+  padding: 10px 20px;
+  /* Espacio interior del botón */
+  border: none;
+  background-color: #007BFF;
+  /* Color de fondo atractivo */
+  color: #fff;
+  /* Color de texto */
+  cursor: pointer;
+  border-radius: 5px;
+  /* Bordes redondeados */
+  transition: background-color 0.3s ease;
+  /* Efecto de transición suave */
+  margin-top: 10px;
+}
+
+.boton-agregar-evento:hover {
+  background-color: #0056b3;
+  /* Cambiar el color de fondo al pasar el mouse */
+}
+
+.contenedor-calendario {
+  width: 80%;
+  /* Ajusta el ancho del contenedor según tu preferencia */
+  margin: 0 auto;
+  /* Centra el contenedor horizontalmente */
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
