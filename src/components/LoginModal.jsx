@@ -20,7 +20,7 @@ export default function ({ isOpen, onClose }) {
                 }
 
                 setLoading(true)
-                await axios.post('/api/login', user)
+                await axios.post('https://api-calendar-rentasale.onrender.com/api/login', user)
                 sessionStorage.setItem('isLoggedIn', 'true');
                 sessionStorage.setItem('userId', user.email);
                 onClose();

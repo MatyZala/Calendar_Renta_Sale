@@ -2,7 +2,6 @@
   "name": "client2",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://api-calendar-rentasale.onrender.com",
   "dependencies": {
     "@auth0/auth0-react": "^2.2.1",
     "@fullcalendar/core": "^6.1.9",
