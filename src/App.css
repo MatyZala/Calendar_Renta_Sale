@@ -88,12 +88,23 @@
 }
 
 .contenedor-calendario {
-  width: 80%;
+  width: 100%;
   /* Ajusta el ancho del contenedor según tu preferencia */
   margin: 0 auto;
   /* Centra el contenedor horizontalmente */
 }
 
+
+@media (max-width: 768px) {
+
+  /* Ajusta el tamaño del calendario para dispositivos móviles */
+  .contenedor-calendario {
+    width: 90%;
+    /* Puedes ajustar este valor según tus necesidades */
+    margin: 0 auto;
+    /* Centra el calendario en la pantalla */
+  }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
