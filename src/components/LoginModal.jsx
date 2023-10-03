@@ -32,7 +32,7 @@ export default function ({ isOpen, onClose }) {
 
 
     const gradientButtonStyle = {
-        background: "linear-gradient(to right, #4e9cff, #4285f4)",
+        background: "#1DE788",
         color: "white",
         border: "none",
         borderRadius: "5px",

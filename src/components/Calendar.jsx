@@ -9,7 +9,6 @@ import LoginModal from "./LoginModal";
 
 export default function () {
     const [modalOpen, setModalOpen] = useState(false)
-    const [modalLoginOpen, setModalLoginOpen] = useState(false)
     const [events, setEvents] = useState([])
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const calendarRef = useRef(null)
@@ -54,7 +53,6 @@ export default function () {
                 {isLoggedIn && (
                     <button className="boton-agregar-evento" onClick={() => setModalOpen(true)}>Agregar Evento</button>
                 )}
-                <button className="boton-agregar-evento" onClick={() => setModalLoginOpen(true)}>Iniciar Sesión</button>
 
             </div>
 
@@ -72,7 +70,7 @@ export default function () {
 
             </div>
             <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)} />
-            <LoginModal isOpen={modalLoginOpen} onClose={() => setModalLoginOpen(false)} />
+
         </section>
     )
 }

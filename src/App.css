@@ -50,7 +50,7 @@
 }
 
 .custom-modal .custom-button {
-  background-color: #007bff;
+  background-color: #1DE788;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -60,7 +60,7 @@
 }
 
 .custom-modal .custom-button:hover {
-  background-color: #0056b3;
+  background-color: #0f9b5a;
 }
 
 
@@ -70,7 +70,7 @@
   padding: 10px 20px;
   /* Espacio interior del botón */
   border: none;
-  background-color: #007BFF;
+  background-color: #1DE788;
   /* Color de fondo atractivo */
   color: #fff;
   /* Color de texto */
@@ -83,17 +83,20 @@
 }
 
 .boton-agregar-evento:hover {
-  background-color: #0056b3;
+  background-color: #0db667;
   /* Cambiar el color de fondo al pasar el mouse */
 }
 
 .contenedor-calendario {
-  width: 100%;
+  width: 95%;
   /* Ajusta el ancho del contenedor según tu preferencia */
   margin: 0 auto;
   /* Centra el contenedor horizontalmente */
 }
 
+.primary {
+  color: '#969696'
+}
 
 @media (max-width: 768px) {
 
