@@ -34,17 +34,23 @@ export default function () {
 
 
     async function handleEventAdd(data) {
-
         await axios.post('https://api-rentasale-calendar.onrender.com/api/calendar/create-event', data.event)
     }
 
 
     async function handleDatesSet(data) {
+        const start = moment().startOf('year');
+        const end = start.clone().add(2, 'year');
 
-        const response = await axios.get('https://api-rentasale-calendar.onrender.com/api/calendar/get-events?start=' + moment(data.start).toISOString() + "&end=" + moment(data.end).toISOString())
-        setEvents(response.data)
+        const response = await axios.get('https://api-rentasale-calendar.onrender.com/api/calendar/get-events', {
+            params: {
+                start: start.toISOString(),
+                end: end.toISOString()
+            }
+        });
+
+        setEvents(response.data);
     }
-
 
 
     return (
