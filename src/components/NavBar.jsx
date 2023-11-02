@@ -96,7 +96,7 @@ function NavBar() {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
                             key='login'
-                            onClick={handleCloseNavMenu}
+                            onClick={() => setModalLoginOpen(true)}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             Iniciar Sesión
