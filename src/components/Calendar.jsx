@@ -5,12 +5,13 @@ import AddEventModal from "./AddEventModal";
 import esLocale from '@fullcalendar/core/locales/es';
 import moment from "moment";
 import axios from 'axios'
-import LoginModal from "./LoginModal";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function () {
     const [modalOpen, setModalOpen] = useState(false)
     const [events, setEvents] = useState([])
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(true);
     const calendarRef = useRef(null)
 
     const onEventAdded = event => {
@@ -22,7 +23,6 @@ export default function () {
         })
     }
 
-
     useEffect(() => {
         const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
         if (storedIsLoggedIn === 'true') {
@@ -32,11 +32,9 @@ export default function () {
         }
     }, []);
 
-
     async function handleEventAdd(data) {
         await axios.post('https://api-rentasale-calendar.onrender.com/api/calendar/create-event', data.event)
     }
-
 
     async function handleDatesSet(data) {
         const start = moment().startOf('year');
@@ -50,8 +48,8 @@ export default function () {
         });
 
         setEvents(response.data);
+        setLoading(false);
     }
-
 
     return (
         <section>
@@ -59,24 +57,31 @@ export default function () {
                 {isLoggedIn && (
                     <button className="boton-agregar-evento" onClick={() => setModalOpen(true)}>Agregar Evento</button>
                 )}
-
             </div>
 
             <div className="contenedor-calendario" style={{ position: 'relative', zIndex: 0 }}>
-
-                <FullCalendar
-                    ref={calendarRef}
-                    events={events}
-                    plugins={[multiMonthPlugin]}
-                    initialView='multiMonthYear'
-                    locale={esLocale}
-                    eventAdd={event => handleEventAdd(event)}
-                    datesSet={(date) => handleDatesSet(date)}
-                />
-
+                {loading ? (
+                    <div style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                    }}>
+                        <CircularProgress color="success" />
+                    </div>
+                ) : (
+                    <FullCalendar
+                        ref={calendarRef}
+                        events={events}
+                        plugins={[multiMonthPlugin]}
+                        initialView='multiMonthYear'
+                        locale={esLocale}
+                        eventAdd={event => handleEventAdd(event)}
+                        datesSet={(date) => handleDatesSet(date)}
+                    />
+                )}
             </div>
             <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)} />
-
         </section>
     )
 }
