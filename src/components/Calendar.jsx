@@ -8,22 +8,34 @@ import axios from 'axios'
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function () {
-    const [modalOpen, setModalOpen] = useState(false)
-    const [events, setEvents] = useState([])
+    const [modalOpen, setModalOpen] = useState(false);
+    const [events, setEvents] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
-    const calendarRef = useRef(null)
-
-    const onEventAdded = event => {
-        let calendarApi = calendarRef.current.getApi();
-        calendarApi.addEvent({
-            start: moment(event.start).toDate(),
-            end: moment(event.end).toDate(),
-            title: event.title
-        })
-    }
+    const calendarRef = useRef(null);
 
     useEffect(() => {
+        const fetchData = async () => {
+            const start = moment().startOf('year');
+            const end = start.clone().add(2, 'year');
+
+            try {
+                const response = await axios.get('https://calendar-renta-sale-api.vercel.app/api/calendar/get-events', {
+                    params: {
+                        start: start.toISOString(),
+                        end: end.toISOString()
+                    }
+                });
+
+                setEvents(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching events:", error);
+            }
+        };
+
+        fetchData();
+
         const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
         if (storedIsLoggedIn === 'true') {
             setIsLoggedIn(true);
@@ -32,24 +44,17 @@ export default function () {
         }
     }, []);
 
-    async function handleEventAdd(data) {
-        await axios.post('https://calendar-renta-sale-api.vercel.app/api/calendar/create-event', data.event)
+    const onEventAdded = event => {
+        let calendarApi = calendarRef.current.getApi();
+        calendarApi.addEvent({
+            start: moment(event.start).toDate(),
+            end: moment(event.end).toDate(),
+            title: event.title
+        });
     }
 
-    async function handleDatesSet(data) {
-        const start = moment().startOf('year');
-        const end = start.clone().add(2, 'year');
-
-        const response = await axios.get('https://calendar-renta-sale-api.vercel.app/api/calendar/get-events', {
-            params: {
-                start: start.toISOString(),
-                end: end.toISOString()
-            }
-        });
-        console.log(response);
-
-        setEvents(response.data);
-        setLoading(false);
+    async function handleEventAdd(data) {
+        await axios.post('https://calendar-renta-sale-api.vercel.app/api/calendar/create-event', data.event);
     }
 
     return (
@@ -79,7 +84,6 @@ export default function () {
                         initialView='multiMonthYear'
                         locale={esLocale}
                         eventAdd={event => handleEventAdd(event)}
-                        datesSet={(date) => handleDatesSet(date)}
                     />
                 )}
             </div>
