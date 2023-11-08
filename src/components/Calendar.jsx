@@ -33,19 +33,20 @@ export default function () {
     }, []);
 
     async function handleEventAdd(data) {
-        await axios.post('https://api-rentasale-calendar.onrender.com/api/calendar/create-event', data.event)
+        await axios.post('https://calendar-renta-sale-api.vercel.app/api/calendar/create-event', data.event)
     }
 
     async function handleDatesSet(data) {
         const start = moment().startOf('year');
         const end = start.clone().add(2, 'year');
 
-        const response = await axios.get('https://api-rentasale-calendar.onrender.com/api/calendar/get-events', {
+        const response = await axios.get('https://calendar-renta-sale-api.vercel.app/api/calendar/get-events', {
             params: {
                 start: start.toISOString(),
                 end: end.toISOString()
             }
         });
+        console.log(response);
 
         setEvents(response.data);
         setLoading(false);
@@ -66,6 +67,7 @@ export default function () {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
+                        marginTop: '10%'
                     }}>
                         <CircularProgress color="success" />
                     </div>

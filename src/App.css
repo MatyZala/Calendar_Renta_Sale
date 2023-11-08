@@ -98,14 +98,22 @@
   color: '#969696'
 }
 
-@media (max-width: 768px) {
-
-  /* Ajusta el tamaño del calendario para dispositivos móviles */
+@media (max-width: 767px) {
   .contenedor-calendario {
-    width: 90%;
-    /* Puedes ajustar este valor según tus necesidades */
+    width: 100%;
+    /* Ocupa todo el ancho disponible */
+    height: 100vh;
+    /* Ocupa toda la altura de la pantalla */
     margin: 0 auto;
-    /* Centra el calendario en la pantalla */
+
+  }
+
+  /* Estilos específicos para el indicador de progreso en dispositivos móviles */
+  .contenedor-calendario>div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 

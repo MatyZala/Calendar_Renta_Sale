@@ -20,7 +20,7 @@ export default function ({ isOpen, onClose }) {
                 }
 
                 setLoading(true)
-                await axios.post('https://api-rentasale-calendar.onrender.com/api/login', user)
+                await axios.post('https://calendar-renta-sale-api.vercel.app/api/login', user)
                 sessionStorage.setItem('isLoggedIn', 'true');
                 sessionStorage.setItem('userId', user.email);
                 onClose();
