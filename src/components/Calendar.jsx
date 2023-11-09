@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import multiMonthPlugin from '@fullcalendar/multimonth'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction';
 import AddEventModal from "./AddEventModal";
 import esLocale from '@fullcalendar/core/locales/es';
 import moment from "moment";
@@ -27,7 +30,14 @@ export default function () {
                     }
                 });
 
-                setEvents(response.data);
+                const eventsWithColor = response.data.map(event => {
+                    return {
+                        ...event,
+                        color: getColorForEvent(event.title)
+                    };
+                });
+
+                setEvents(eventsWithColor);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching events:", error);
@@ -46,12 +56,30 @@ export default function () {
 
     const onEventAdded = event => {
         let calendarApi = calendarRef.current.getApi();
+        const color = getColorForEvent(event.title);
+
         calendarApi.addEvent({
             start: moment(event.start).toDate(),
             end: moment(event.end).toDate(),
-            title: event.title
+            title: event.title,
+            color: color,
         });
     }
+
+    const getColorForEvent = (eventName) => {
+        switch (eventName) {
+            case '101':
+                return '#66bb6a';
+            case '137':
+                return '#64b5f6';
+            case '305':
+                return '#ffca28';
+            case '144':
+                return '#ffb74d';
+            default:
+                return '#bdbdbd';
+        }
+    };
 
     async function handleEventAdd(data) {
         await axios.post('https://calendar-renta-sale-api.vercel.app/api/calendar/create-event', data.event);
@@ -77,14 +105,23 @@ export default function () {
                         <CircularProgress color="success" />
                     </div>
                 ) : (
-                    <FullCalendar
-                        ref={calendarRef}
-                        events={events}
-                        plugins={[multiMonthPlugin]}
-                        initialView='multiMonthYear'
-                        locale={esLocale}
-                        eventAdd={event => handleEventAdd(event)}
-                    />
+                    <div className="full-container">
+                        <FullCalendar
+                            ref={calendarRef}
+                            events={events}
+                            plugins={[multiMonthPlugin, dayGridPlugin, interactionPlugin]}
+                            themeSystem='minty'
+                            initialView='multiMonthYear'
+                            locale={esLocale}
+                            eventAdd={event => handleEventAdd(event)}
+                            height={"90vh"}
+                            headerToolbar={{
+                                start: 'today,prev,next',
+                                center: 'title',
+                                end: 'multiMonthYear,dayGridMonth'
+                            }}
+                        />
+                    </div>
                 )}
             </div>
             <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)} />
